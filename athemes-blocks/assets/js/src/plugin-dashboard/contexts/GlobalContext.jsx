@@ -34,7 +34,31 @@ export const GlobalContextProvider = ({ children }) => {
 	const [activeSection, setActiveSection] = useState(getDefaultActiveSection());
 	const [displaySnackBar, setDisplaySnackBar] = useState(false);
 	const [enabledBlocks, setEnabledBlocks] = useState( athemesBlocksEnabledBlocks || [] );
-	const [settings, setSettings] = useState( athemesBlocksDashboardSettings || {} );
+
+	// Default settings to prevent errors when the option is empty in the database.
+	const defaultSettings = {
+		editor_options: {
+			container_content_width: 1200,
+			container_columns_gap: 15,
+			container_rows_gap: 15,
+		},
+		performance: {
+			load_google_fonts_locally: true,
+		},
+	};
+
+	const [settings, setSettings] = useState( {
+		...defaultSettings,
+		...( athemesBlocksDashboardSettings || {} ),
+		editor_options: {
+			...defaultSettings.editor_options,
+			...( athemesBlocksDashboardSettings?.editor_options || {} ),
+		},
+		performance: {
+			...defaultSettings.performance,
+			...( athemesBlocksDashboardSettings?.performance || {} ),
+		},
+	} );
 	
 	return (
 		<PageContext.Provider value={[activePage, setActivePage, activeSection, setActiveSection]}>

@@ -92,9 +92,16 @@ const BlocksCard = ( props ) => {
         } ).then( ( response ) => {
 
             // Parse the string into an array if it's a string.
-            const currentEnabledBlocks = typeof response.athemes_blocks_enabled_blocks === 'string' 
-                ? JSON.parse(response.athemes_blocks_enabled_blocks)
-                : (response.athemes_blocks_enabled_blocks || []);
+            let currentEnabledBlocks = [];
+            if ( typeof response.athemes_blocks_enabled_blocks === 'string' && response.athemes_blocks_enabled_blocks ) {
+                try {
+                    currentEnabledBlocks = JSON.parse( response.athemes_blocks_enabled_blocks );
+                } catch ( e ) {
+                    currentEnabledBlocks = [];
+                }
+            } else if ( Array.isArray( response.athemes_blocks_enabled_blocks ) ) {
+                currentEnabledBlocks = response.athemes_blocks_enabled_blocks;
+            }
             
             let updatedEnabledBlocks;
             if ( isSwitchToggleChecked ) {

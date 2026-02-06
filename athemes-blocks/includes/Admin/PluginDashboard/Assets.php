@@ -98,8 +98,14 @@ class Assets {
 			return;
 		}
 		$enabled_blocks = get_option( 'athemes_blocks_enabled_blocks' );
+		$enabled_blocks = json_decode( $enabled_blocks, true );
 
-		wp_localize_script( 'at-blocks-plugin-dashboard', 'athemesBlocksEnabledBlocks', json_decode( $enabled_blocks, true ) );
+		// Ensure we have an array (json_decode returns null for empty/invalid JSON).
+		if ( ! is_array( $enabled_blocks ) ) {
+			$enabled_blocks = array();
+		}
+
+		wp_localize_script( 'at-blocks-plugin-dashboard', 'athemesBlocksEnabledBlocks', $enabled_blocks );
 	}
 
 	/**
@@ -180,7 +186,30 @@ class Assets {
 			return;
 		}
 		$settings = get_option( 'athemes_blocks_dashboard_settings' );
-		wp_localize_script( 'at-blocks-plugin-dashboard', 'athemesBlocksDashboardSettings', json_decode( $settings, true ) );
+		$settings = json_decode( $settings, true );
+
+		// Ensure we have an array (json_decode returns null for empty/invalid JSON).
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+
+		// Provide default settings if the option is empty or missing keys.
+		$defaults = array(
+			'editor_options' => array(
+				'container_content_width' => 1200,
+				'container_columns_gap'   => 15,
+				'container_rows_gap'      => 15,
+			),
+			'performance'    => array(
+				'load_google_fonts_locally' => true,
+			),
+		);
+
+		$settings = wp_parse_args( $settings, $defaults );
+		$settings['editor_options'] = wp_parse_args( $settings['editor_options'] ?? array(), $defaults['editor_options'] );
+		$settings['performance'] = wp_parse_args( $settings['performance'] ?? array(), $defaults['performance'] );
+
+		wp_localize_script( 'at-blocks-plugin-dashboard', 'athemesBlocksDashboardSettings', $settings );
 	}
 
 	/**
