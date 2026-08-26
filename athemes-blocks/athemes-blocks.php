@@ -2,7 +2,9 @@
 /**
  * Plugin Name:       aThemes Blocks
  * Description:       aThemes Blocks is a Gutenberg plugin extending the WordPress editor with awesome blocks.
- * Version:           1.1.4
+ * Version:           1.1.5
+ * Requires at least: 5.5
+ * Requires PHP:      7.4
  * Author:            aThemes
  * Author URI:        https://athemes.com
  * License:           GPL-2.0+
@@ -20,15 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use AThemes_Blocks\PluginLoader;
 
-define( 'ATHEMES_BLOCKS_VERSION', '1.1.4' );
+define( 'ATHEMES_BLOCKS_VERSION', '1.1.5' );
 define( 'ATHEMES_BLOCKS_FILE', __FILE__ );
 define( 'ATHEMES_BLOCKS_PATH', plugin_dir_path( ATHEMES_BLOCKS_FILE ) );
 define( 'ATHEMES_BLOCKS_URL', plugin_dir_url( ATHEMES_BLOCKS_FILE ) );
 
 // Plugin Loader.
-if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
+if ( ! version_compare( PHP_VERSION, '7.4', '>=' ) ) {
 	add_action( 'admin_notices', 'athemes_blocks_incompatible_php_version' );
-} elseif ( ! version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
+} elseif ( ! version_compare( get_bloginfo( 'version' ), '5.5', '>=' ) ) {
 	add_action( 'admin_notices', 'athemes_blocks_incompatible_wp_version' );
 } else {
     require_once ATHEMES_BLOCKS_PATH . 'vendor/autoload.php';
@@ -41,11 +43,11 @@ if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
  * 
  * @return void
  */
-function athemes_blocks_incompatible_php_version(): void {
+function athemes_blocks_incompatible_php_version() {
 	$message = sprintf( 
-        /* Translators: 1. WordPress version */
+        /* Translators: 1. PHP version. */
         esc_html__( 'aThemes Blocks plugin requires PHP version %s+. Please update your server PHP version to get the plugin working.', 'athemes-blocks' ), 
-        '5.6' 
+        '7.4' 
     );
 
 	$message_output = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
@@ -58,9 +60,9 @@ function athemes_blocks_incompatible_php_version(): void {
  * 
  * @return void
  */
-function athemes_blocks_incompatible_wp_version(): void {
+function athemes_blocks_incompatible_wp_version() {
 	$message = sprintf( 
-        /* Translators: 1. WordPress version */
+        /* Translators: 1. WordPress version. */
         esc_html__( 'aThemes Blocks plugin requires WordPress version %s+. Please update the WordPress version to get the plugin working.', 'athemes-blocks' ), 
         '5.5' 
     );

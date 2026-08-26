@@ -228,10 +228,10 @@ const Edit = (props) => {
 			cardPadding: getDimensionsSettingValue('cardPadding', currentDevice, atts),
 			cardPaddingToContentOnly: atts.cardPaddingToContentOnly,
 			carouselPadding: getDimensionsSettingValue('carouselPadding', currentDevice, atts),
-			arrowSize: getSettingValue('arrowSize', 'desktop', atts),
+			arrowSize: getSettingValue('arrowSize', currentDevice, atts),
 			arrowBorderSize: getSettingValue('arrowBorderSize', 'desktop', atts),
 			arrowBorderRadius: getSettingValue('arrowBorderRadius', 'desktop', atts),
-			arrowOffset: getSettingValue('arrowOffset', 'desktop', atts),
+			arrowOffset: getSettingValue('arrowOffset', currentDevice, atts),
 			navigationColor: getSettingValue('navigationColor', 'desktop', atts),
 			navigationBackgroundColor: getSettingValue('navigationBackgroundColor', 'desktop', atts),
 			navigationBorderColor: getSettingValue('navigationBorderColor', 'desktop', atts),
@@ -1532,21 +1532,21 @@ const Edit = (props) => {
 										<RangeSlider 
 											label={ __( 'Arrow Size', 'athemes-blocks' ) }
 											defaultValue={ arrowSize }
-											defaultUnit={ getSettingUnit( 'arrowSize', 'desktop', atts ) }
+											defaultUnit={ getSettingUnit( 'arrowSize', currentDevice, atts ) }
 											min={ 1 }
 											max={ {
 												px: 150,
 												em: 20,
 												rem: 20
 											} }
-											responsive={false}
+											responsive={true}
 											reset={true}
 											units={['px', 'em', 'rem']}
 											onChange={ ( value ) => {
 												updateAttribute( 'arrowSize', {
 													value: value,
-													unit: getSettingUnit( 'arrowSize', 'desktop', atts )
-												}, 'desktop' );
+													unit: getSettingUnit( 'arrowSize', currentDevice, atts )
+												}, currentDevice );
 
 												setUpdateCss( { settingId: 'arrowSize', value: value } );
 											} }
@@ -1554,17 +1554,17 @@ const Edit = (props) => {
 												updateAttribute( 'arrowSize', {
 													value: arrowSize,
 													unit: value,
-												}, 'desktop' );
+												}, currentDevice );
 
 												setUpdateCss( { settingId: 'arrowSize', value: value } );								
 											} }
 											onClickReset={ () => {
 												updateAttribute( 'arrowSize', {
-													value: getSettingDefaultValue( 'arrowSize', 'desktop', attributesDefaults ),
-													unit: getSettingDefaultUnit( 'arrowSize', 'desktop', attributesDefaults )
-												}, 'desktop' );							
+													value: getSettingDefaultValue( 'arrowSize', currentDevice, attributesDefaults ),
+													unit: getSettingDefaultUnit( 'arrowSize', currentDevice, attributesDefaults )
+												}, currentDevice );							
 
-												setUpdateCss( { settingId: 'arrowSize', value: getSettingDefaultValue( 'arrowSize', 'desktop', attributesDefaults ) } );								
+												setUpdateCss( { settingId: 'arrowSize', value: getSettingDefaultValue( 'arrowSize', currentDevice, attributesDefaults ) } );								
 											} }
 										/>
 										<RangeSlider 
@@ -1638,17 +1638,17 @@ const Edit = (props) => {
 										<RangeSlider 
 											label={ __( 'Arrow Offset', 'athemes-blocks' ) }
 											defaultValue={ arrowOffset }
-											defaultUnit={ getSettingUnit( 'arrowOffset', 'desktop', atts ) }
+											defaultUnit={ getSettingUnit( 'arrowOffset', currentDevice, atts ) }
 											min={ -100 }
 											max={ 100 }
-											responsive={false}
+											responsive={true}
 											reset={true}
 											units={['px']}
 											onChange={ ( value ) => {
 												updateAttribute( 'arrowOffset', {
 													value: value,
-													unit: getSettingUnit( 'arrowOffset', 'desktop', atts )
-												}, 'desktop' );
+													unit: getSettingUnit( 'arrowOffset', currentDevice, atts )
+												}, currentDevice );
 
 												setUpdateCss( { settingId: 'arrowOffset', value: value } );
 											} }
@@ -1656,17 +1656,17 @@ const Edit = (props) => {
 												updateAttribute( 'arrowOffset', {
 													value: arrowOffset,
 													unit: value,
-												}, 'desktop' );
+												}, currentDevice );
 
 												setUpdateCss( { settingId: 'arrowOffset', value: value } );								
 											} }
 											onClickReset={ () => {
 												updateAttribute( 'arrowOffset', {
-													value: getSettingDefaultValue( 'arrowOffset', 'desktop', attributesDefaults ),
-													unit: getSettingDefaultUnit( 'arrowOffset', 'desktop', attributesDefaults )
-												}, 'desktop' );							
+													value: getSettingDefaultValue( 'arrowOffset', currentDevice, attributesDefaults ),
+													unit: getSettingDefaultUnit( 'arrowOffset', currentDevice, attributesDefaults )
+												}, currentDevice );							
 
-												setUpdateCss( { settingId: 'arrowOffset', value: getSettingDefaultValue( 'arrowOffset', 'desktop', attributesDefaults ) } );								
+												setUpdateCss( { settingId: 'arrowOffset', value: getSettingDefaultValue( 'arrowOffset', currentDevice, attributesDefaults ) } );								
 											} }
 										/>
 										<ColorPicker

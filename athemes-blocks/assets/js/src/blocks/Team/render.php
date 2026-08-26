@@ -22,7 +22,7 @@ use aThemes_Blocks\Blocks\Helper\Swiper;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/Team/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $content = $attributes['content'] ?? '';
 $htmlTag = 'div';
 $alignment = isset( $attributes['alignment'] ) ? $attributes['alignment'] : $atts_defaults['alignment']['default'];
@@ -50,10 +50,14 @@ $hideOnMobile = Settings::get_setting( 'hideOnMobile', $attributes, $atts_defaul
 
 $wrapper_attributes = array();
 $wrapper_classes = array( 
-    'at-block', 
-    'at-block-' . $clientId, 
-    'at-block-team' 
+    'at-block',
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
+
+$wrapper_classes[] = 'at-block-team';
 
 // Add alignment class if set
 if ( ! empty( $attributes['align'] ) ) {

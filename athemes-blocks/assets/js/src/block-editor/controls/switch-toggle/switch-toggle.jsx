@@ -26,7 +26,6 @@ export function SwitchToggle( props ) {
             </div>
             
             <ToggleControl
-                __next40pxDefaultSize
                 __nextHasNoMarginBottom
                 label=""
                 checked={value}

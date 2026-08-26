@@ -81,6 +81,11 @@ abstract class BlockBase {
 
         $attributes = $block['attrs'];
         $block_id = $attributes['clientId'] ?? '';
+
+        if ( empty( $block_id ) ) {
+            return $block_content;
+        }
+
         $default_attributes = require ATHEMES_BLOCKS_PATH . 'build/blocks/'. $this->id .'/attributes.php';
 
         $css = new BlockCss( $attributes, $block_id, $default_attributes );

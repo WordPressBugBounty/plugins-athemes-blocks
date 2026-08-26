@@ -20,7 +20,7 @@ use aThemes_Blocks\Blocks\Helper\Functions;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/Icon/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $content = $attributes['content'] ?? '';
 $htmlTag = 'div';
 
@@ -31,10 +31,14 @@ $hideOnMobile = Settings::get_setting( 'hideOnMobile', $attributes, $atts_defaul
 
 $wrapper_attributes = array();
 $wrapper_classes = array( 
-    'at-block', 
-    'at-block-' . $clientId, 
-    'at-block-icon' 
+    'at-block',
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
+
+$wrapper_classes[] = 'at-block-icon';
 
 // Link.
 $link = Settings::get_inner_setting( 'link', 'linkUrl', $attributes, $atts_defaults, '' );

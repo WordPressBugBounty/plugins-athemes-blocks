@@ -20,7 +20,7 @@ use aThemes_Blocks\Blocks\Helper\Functions;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/Button/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $content = $attributes['content'] ?? '';
 $buttonId = $attributes['buttonId'] ?? '';
 $enableIcon = $attributes['enableIcon'] ?? false;
@@ -37,10 +37,14 @@ $hideOnMobile = Settings::get_setting( 'hideOnMobile', $attributes, $atts_defaul
 // Wrapper attributes.
 $wrapper_attributes = array();
 $wrapper_classes = array( 
-    'at-block', 
-    'at-block-' . $clientId, 
-    'at-block-button' 
+    'at-block',
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
+
+$wrapper_classes[] = 'at-block-button';
 
 // Link attributes.
 $link_attributes = array();

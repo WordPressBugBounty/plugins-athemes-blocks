@@ -20,7 +20,7 @@ use aThemes_Blocks\Blocks\Helper\Functions;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/TeamMember/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $htmlTag = 'div';
 $alignment = isset( $attributes['alignment'] ) ? $attributes['alignment'] : $atts_defaults['alignment']['default'];
 $verticalAlignment = Settings::get_setting( 'verticalAlignment', $attributes, $atts_defaults, 'desktop' );
@@ -34,10 +34,14 @@ $hideOnMobile = Settings::get_setting( 'hideOnMobile', $attributes, $atts_defaul
 
 $wrapper_attributes = array();
 $wrapper_classes = array( 
-    'at-block', 
-    'at-block-' . $clientId, 
-    'at-block-team-member' 
+    'at-block',
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
+
+$wrapper_classes[] = 'at-block-team-member';
 
 // Add alignment class if set
 if ( ! empty( $attributes['align'] ) ) {

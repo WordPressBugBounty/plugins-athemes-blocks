@@ -82,3 +82,10 @@
         padding: 15px;
     }
 }
+
+/* Legacy responsive controls. */
+.athemes-blocks-device-type-control {
+    .components-tab-panel__tabs-item.components-button {
+        background-color: transparent !important;
+    }
+}

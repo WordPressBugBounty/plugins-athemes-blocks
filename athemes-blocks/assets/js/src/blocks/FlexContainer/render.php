@@ -20,7 +20,7 @@ use aThemes_Blocks\Blocks\Helper\Functions;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/FlexContainer/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $containerWidth = Settings::get_setting( 'containerWidth', $attributes, $atts_defaults );
 $contentWidth = Settings::get_setting( 'contentWidth', $attributes, $atts_defaults );
 $contentBoxWidth = Settings::get_setting( 'contentBoxWidth', $attributes, $atts_defaults );
@@ -40,8 +40,11 @@ $wrapper_attributes = array();
 $wrapper_classes = array( 
     'at-block', 
     'at-block-flex-container',
-    'at-block-' . $clientId
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
 
 // Container width.
 $wrapper_classes[] = 'at-block-flex-container--container-' . $containerWidth;

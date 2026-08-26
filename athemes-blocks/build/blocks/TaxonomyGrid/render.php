@@ -24,7 +24,7 @@ use AThemes_Blocks\Blocks\Helper\TaxonomyGrid as TaxonomyGridHelper;
 $atts_defaults = require( ATHEMES_BLOCKS_PATH . 'build/blocks/TaxonomyGrid/attributes.php' );
 
 // Extract the settings values.
-$clientId = $attributes['clientId'];
+$client_id = $attributes['clientId'] ?? '';
 $content = $attributes['content'] ?? '';
 
 // Query options.
@@ -68,10 +68,14 @@ $hideOnMobile = Settings::get_setting( 'hideOnMobile', $attributes, $atts_defaul
 
 $wrapper_attributes = array();
 $wrapper_classes = array( 
-    'at-block', 
-    'at-block-' . $clientId, 
-    'at-block-taxonomy-grid' 
+    'at-block',
 );
+
+if ( ! empty( $client_id ) ) {
+    $wrapper_classes[] = 'at-block-' . $client_id;
+}
+
+$wrapper_classes[] = 'at-block-taxonomy-grid';
 
 // Add alignment class if set
 if ( ! empty( $attributes['align'] ) ) {

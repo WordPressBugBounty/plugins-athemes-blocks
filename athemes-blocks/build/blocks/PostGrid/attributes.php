@@ -644,15 +644,15 @@ return array_merge(
             'type' => 'object',
             'default' => array(
                 'desktop' => array(
-                    'value' => '',
+                    'value' => -50,
                     'unit' => 'px',
                 ),
                 'tablet' => array(
-                    'value' => '',
+                    'value' => 0,
                     'unit' => 'px',
                 ),
                 'mobile' => array(
-                    'value' => '',
+                    'value' => 0,
                     'unit' => 'px',
                 ),
             ),

@@ -13,6 +13,10 @@
 .at-block-post-grid {
     box-sizing: border-box;
 
+    .at-block-swiper-wrapper {
+		position: relative;
+	}
+
     &__swiper {
         .swiper-slide {
             box-sizing: border-box;
@@ -375,17 +379,17 @@
     }
 
     // Carousel state before initialization.
-    .at-block-post-grid__swiper {
-        &:not(.swiper-initialized) {
-            .swiper-wrapper {
-                display: flex;
-
-                .at-block-post-grid__item {
-                    width: calc(100% / var(--atb-post-grid-columns, 3));
-                }
-            }
-        }
-    }
+	.at-block-post-grid__swiper {
+		&:not(.swiper-initialized) {
+			.swiper-wrapper {
+				display: flex;
+		
+				.at-block-post-grid__item {
+					width: calc(100% / var(--atb-post-grid-columns, 3));
+				}
+			}
+		}
+	}
 
     // Carousel dots.
     &.atb-has-carousel-dots {
@@ -393,6 +397,37 @@
             padding-bottom: 30px;
         }
     }
+
+   	// Carousel navigation.
+	.at-block-nav {
+		&:before {
+			width: 50%;
+			height: 50%;
+			border-top-width: 3px;
+			border-right-width: 3px;
+		}
+	}
+   
+	@media (hover: hover) and (pointer: fine) {
+		.at-block-nav {
+			opacity: 0;
+			transform: translateY(-50%) scale(0.7);
+		}
+   
+		&:hover,
+		&:focus-within {
+			.at-block-nav {
+				opacity: 1;
+				transform: translateY(-50%) scale(1);
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.at-block-swiper-wrapper .at-block-post-grid__item {
+			text-align: start;
+		}
+	}
 
     // Pagination.
     &__pagination {
